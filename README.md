@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Ynov Voting App
 
 A simple distributed application running across multiple Docker containers.
@@ -202,3 +203,11 @@ Note: The images tags deployed on `dev-server` and `prod-server` need to be diff
 
 As final task, access the application using the deployment server public ip and take a screenshot of the voting application. Feel free to play with the application by doing some vote for cats or dogs :)
 PLEASE DO NOT FORGET TO ENTER YOUR GITHUB URL AND YOUR TEAM MEMBERS NAMES when submitting your work
+=======
+# YNOV-PIPELINE
+
+GROUPE :
+SAMY LACOMBE
+SONIA AYEM
+ZAINEB BOUDHRIOUA GABTNI
+>>>>>>> e0a4ae0754c097fa8acd494423c6af2fe638cfa3
