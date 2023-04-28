@@ -33,7 +33,6 @@ deploy-dev:   # This job runs in the test stage.
     - docker    # It only starts when the job in the build stage completes successfully.
   script:
     - ssh -o StrictHostKeyChecking=no -i  $SSH_PRIVATE_KEY ubuntu@ec2-54-174-124-190.compute-1.amazonaws.com 
-    - cd /home/ubuntu
     - docker-compose up
 
 #deploy-dev:   # This job also runs in the test stage.
@@ -54,6 +53,5 @@ deploy-prod:
   environment: production
   script:
     - ssh -o StrictHostKeyChecking=no -i  $SSH_PRIVATE_KEY ubuntu@ec2-54-174-124-190.compute-1.amazonaws.com 
-    - cd /home/ubuntu
     - docker-compose up
 
