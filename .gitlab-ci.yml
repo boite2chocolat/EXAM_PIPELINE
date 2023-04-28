@@ -21,7 +21,7 @@ stages:          # List of stages for jobs, and their order of execution
   - deploy-dev
   - deploy-prod
 
-build-n-push-images-job: # This job runs in the build stage, which runs first.
+build-n-push-images: # This job runs in the build stage, which runs first.
   before_script:
     - docker login -u="${DOCKERHUB_USER}" -p="${DOCKER_PASSWORD}"
   stage: build-n-push-images
@@ -31,7 +31,7 @@ build-n-push-images-job: # This job runs in the build stage, which runs first.
     - docker-compose -f docker-composebuild.yml build
     - docker-compose -f docker-composebuild.yml push
 
-deploy-dev-job:   # This job runs in the test stage.
+deploy-dev:   # This job runs in the test stage.
   stage: deploy-dev
   tags:
     - docker    # It only starts when the job in the build stage completes successfully.
@@ -40,7 +40,7 @@ deploy-dev-job:   # This job runs in the test stage.
     - sleep 60
     - echo "Code coverage is 90%"
 
-deploy-dev-job:   # This job also runs in the test stage.
+deploy-dev:   # This job also runs in the test stage.
   stage: test    # It can run at the same time as unit-test-job (in parallel).
   tags:
     - shell
@@ -49,7 +49,7 @@ deploy-dev-job:   # This job also runs in the test stage.
     - sleep 10
     - echo "No lint issues found."
 
-deploy-prod-job:      # This job runs in the deploy stage.
+deploy-prod:      # This job runs in the deploy stage.
   stage: deploy-prod  # It only runs when *both* jobs in the test stage complete successfully.
   tags:
     - shell
