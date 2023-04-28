@@ -1,0 +1,77 @@
+version: "3"
+
+services:
+  redis:
+    image: redis:alpine
+    volumes:
+      - "./healthchecks:/healthchecks"
+    healthcheck:
+      test: /healthchecks/redis.sh
+      interval: "5s"
+    networks:
+      - back-tier
+  result:
+    build:
+      context: ./result
+    image: samyl/result:latest
+    restart: always
+    depends_on:
+      db:
+        condition: service_healthy 
+    ports:
+      - "5001:80"
+    networks:
+      - front-tier
+      - back-tier
+  db:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+    volumes:
+      - "db-data:/var/lib/postgresql/data"
+      - "./healthchecks:/healthchecks"
+    healthcheck:
+      test: /healthchecks/postgres.sh
+      interval: "5s"
+    networks:
+      - back-tier
+
+  seed-data:
+    build:
+      context: ./seed-data
+    image: samyl/seed-data:latest
+    container_name: seed-data
+    restart: always
+
+  worker:
+    build:
+      context: ./worker
+    image: samyl/worker:latest
+    restart: always
+    depends_on:
+      redis:
+        condition: service_healthy 
+      db:
+        condition: service_healthy 
+    networks:
+      - back-tier
+
+  vote:
+    build:
+      context: ./vote
+    image: samyl/vote:latest
+    restart: always
+    depends_on:
+      redis:
+        condition: service_healthy 
+    ports:
+      - "5000:80"
+    networks:
+      - front-tier
+      - back-tier
+volumes:
+  db-data:
+networks:
+  front-tier:
+  back-tier:
