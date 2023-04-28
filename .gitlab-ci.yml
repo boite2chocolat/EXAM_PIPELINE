@@ -17,8 +17,8 @@ build-n-push-images: # This job runs in the build stage, which runs first.
   tags:
     - docker
   script:
-    - docker-compose -f docker-compose-build.yml build
-    - docker-compose -f docker-compose-build.yml push
+    - docker-compose -f docker-compose.yml build
+    - docker-compose -f docker-compose.yml push
 
 deploy-dev:   # This job runs in the test stage.
   before_script:
