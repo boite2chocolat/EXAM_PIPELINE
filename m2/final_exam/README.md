@@ -93,7 +93,7 @@ CMD ["gunicorn", "app:app", "-b", "0.0.0.0:80", "--log-file", "-", "--access-log
 
 ```
 
-2. worker
+3. worker
 
 ```shell
 # because of dotnet, we always build on amd64, and target platforms in cli
