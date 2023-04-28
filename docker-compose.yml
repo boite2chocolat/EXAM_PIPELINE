@@ -83,8 +83,8 @@ services:
       - front-tier
     restart: "no"
 
-#volumes:
- # db-data:
+volumes:
+  db-data:
 
 networks:
   front-tier:
