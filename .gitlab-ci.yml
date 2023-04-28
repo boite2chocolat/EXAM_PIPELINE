@@ -42,7 +42,7 @@ deploy-dev:   # This job runs in the test stage.
     - echo "No lint issues found."
 
 #deploy-prod:      # This job runs in the deploy stage.
-  stage: deploy-prod  # It only runs when *both* jobs in the test stage complete successfully.
+  stage: deploy-prod  # It only runs when *both* jobs in the test stage complete successfully..
   tags:
     - docker
   environment: production
